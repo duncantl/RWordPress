@@ -1,0 +1,40 @@
+import(XMLRPC)
+import(methods)
+
+export(
+categories,
+deleteCategory,
+deletePage,
+deletePost,
+getCategories,
+getCategoryList,
+getOptions,
+getPage,
+getPageList,
+getPageStatusList,
+getPages,
+getPost,
+getPostCategories,
+getPostStatusList,
+getRecentPostTitles,
+getPosts,
+getTags,
+getUsersBlogs,
+newCategory,
+newPage,
+newPost,
+publishPost,
+setPostCategories,
+supportedMethods,
+supportedTextFilters,
+uploadFile,
+editPost
+#appendToPost       
+)
+
+exportMethods(setPostCategories)
+
+# matchCategory,
+# readBinaryFile,
+# makeIntoDataFrame,
+# generalRequest,

@@ -1,0 +1,90 @@
+i = sapply(objects(), grep, m)
+objects()[sapply(i, length) > 0]
+
+######################
+Done
+[19,] "wp.getOptions"                   
+[46,] "mt.getCategoryList"              
+ [7,] "wp.getPageList"                  
+[48,] "mt.getPostCategories"            
+[17,] "wp.getPageStatusList"            
+[47,] "mt.getRecentPostTitles"          
+ [1,] "wp.getUsersBlogs"                
+[11,] "wp.newCategory"                  
+[50,] "mt.supportedMethods"             
+[51,] "mt.supportedTextFilters"         
+[16,] "wp.getPostStatusList"            
+[36,] "metaWeblog.newPost"              
+[36,] "wp.newPage"              
+ [3,] "wp.getPages"                     
+[53,] "mt.publishPost"                  
+[10,] "wp.getTags"                      
+ [5,] "wp.deletePage"                   
+[35,] "blogger.deletePost"              
+[12,] "wp.deleteCategory"               
+
+#
+Test
+[49,] "mt.setPostCategories"            
+
+What about setting a post's tags.
+
+[14,] "wp.uploadFile"                   
+
+###########################
+ [9,] "wp.getCategories"                
+
+ [2,] "wp.getPage"                      
+ [6,] "wp.editPage"                     
+ [8,] "wp.getAuthors"                   
+[13,] "wp.suggestCategories"            
+
+[15,] "wp.getCommentCount"              
+[18,] "wp.getPageTemplates"             
+[20,] "wp.setOptions"                   
+[21,] "wp.getComment"                   
+[22,] "wp.getComments"                  
+[23,] "wp.deleteComment"                
+[24,] "wp.editComment"                  
+[25,] "wp.newComment"                   
+[26,] "wp.getCommentStatusList"         
+
+[27,] "blogger.getUsersBlogs"           
+[28,] "blogger.getUserInfo"             
+[30,] "blogger.getRecentPosts"          
+[31,] "blogger.getTemplate"             
+[32,] "blogger.setTemplate"             
+[33,] "blogger.newPost"                 
+[34,] "blogger.editPost"                
+
+
+[37,] "metaWeblog.editPost"             
+
+[39,] "metaWeblog.getRecentPosts"       
+[40,] "metaWeblog.getCategories"        
+[41,] "metaWeblog.newMediaObject"       
+
+[43,] "metaWeblog.getTemplate"          
+[44,] "metaWeblog.setTemplate"          
+[45,] "metaWeblog.getUsersBlogs"        
+
+
+
+[52,] "mt.getTrackbackPings"            
+
+[54,] "pingback.ping"                   
+[55,] "pingback.extensions.getPingbacks"
+
+[58,] "wpStats.get_key"                 
+[59,] "wpStats.check_key"               
+[60,] "wpStats.get_blog_id"             
+[61,] "wpStats.get_site_id"             
+[62,] "wpStats.update_bloginfo"         
+[63,] "wpStats.update_postinfo"         
+[64,] "wpStats.ping_blog"               
+[65,] "wpStats.flush_posts"             
+[66,] "wpcom.get_user_blogids"          
+
+
+[56,] "demo.sayHello"                   
+[57,] "demo.addTwoNumbers"              

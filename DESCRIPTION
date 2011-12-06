@@ -1,0 +1,21 @@
+Package: RWordPress
+Version: 0.1-0
+Title: Interface to Wordpress blogs
+Description: This is a package that provides a programmatic interface to 
+  access Wordpress blogs using XMLRPC. Using the login and password for a blog,
+  one can both query and post to a blog. 
+  One can query the pages, posts, categories, dates of the posts, etc.
+  One can create new pages or posts on a given page and even upload files
+  to the blog.
+  This is an illustration of XML-RPC within R and also a useful facility for
+  people blogging about R and wanting to create content within R and post it to the
+  blog. However we prepare the content (e.g. directly, or with Sweave or XDynDocs or XSL)
+  we can the post that content. We might also create some facilities for taking an existing
+  post and inserting R content at places based on ids or stubs. This would allow people 
+  to create the post using an editor, e.g. Wordpress's own interface and the populate the 
+  content with R output.
+Author: Duncan Temple Lang
+Maintainer: Duncan Temple Lang <duncan@r-project.org>
+License: BSD
+Imports: XMLRPC, methods
+
