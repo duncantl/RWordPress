@@ -2,91 +2,98 @@
 # http://www.movabletype.org/documentation/developer/api/
 
 ServerURL = "https://omegahat.wordpress.com/xmlrpc.php"
+#ServerURL = "https://www.carlboettiger.info/xmlrpc.php"
+
+getServerURL =
+ function() {
+   getOption("WordpressURL", "https://omegahat.wordpress.com/xmlrpc.php")
+ }
 
 categories = getCategoryList = getCategories =
-function(login = getOption("WordpressLogin", stop("need a login and password")))
+function(login = getOption("WordpressLogin", stop("need a login and password")), .server = getServerURL())
 {
-  ans = xml.rpc(ServerURL, "mt.getCategoryList", 0L, names(login), as.character(login))
+  ans = xml.rpc(.server, "mt.getCategoryList", 0L, names(login), as.character(login))
   structure(sapply(ans, `[[`, "categoryId"), names = sapply(ans, `[[`, "categoryName"))
 }
 
 getPosts = getRecentPostTitles =
-function(num = 100, blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ...)
+function(num = 100, blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ...,
+         .server = getServerURL())
 {
-  ans = xml.rpc(ServerURL, "mt.getRecentPostTitles", as.integer(blogid),
+  ans = xml.rpc(.server, "mt.getRecentPostTitles", as.integer(blogid),
                      names(login), as.character(login), as.integer(num), ...)
   do.call("rbind", lapply(ans, as.data.frame))
 }
 
 getTags =
-function(blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ...)
+function(blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ..., .server = getServerURL())
 {
-  xml.rpc(ServerURL, "wp.getTags", as.character(blogid),
+  xml.rpc(.server, "wp.getTags", as.character(blogid),
                      names(login), as.character(login), ...)
 }
 
 getPostCategories =
-function(post = 100, login = getOption("WordpressLogin", stop("need a login and password")))
+function(post = 100, login = getOption("WordpressLogin", stop("need a login and password")), .server = getServerURL())
 {
-  ans = xml.rpc(ServerURL, "mt.getPostCategories", as.integer(post), names(login), as.character(login))
+  ans = xml.rpc(.server, "mt.getPostCategories", as.integer(post), names(login), as.character(login))
 }
 
 
 getPost =
   #XXX match by name by looking up all the posts and matching.
-function(postid, login = getOption("WordpressLogin", stop("need a login and password")))
+function(postid, login = getOption("WordpressLogin", stop("need a login and password")), .server = getServerURL())
 {
-  xml.rpc(ServerURL, "metaWeblog.getPost", as.character(postid), names(login), as.character(login))
+  xml.rpc(.server, "metaWeblog.getPost", as.character(postid), names(login), as.character(login))
 }
 
 getPage =
   # ll = getPages()
-function(pageid, blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ...)
+function(pageid, blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ..., .server = getServerURL())
 {
   #XXX conversion is not right. 
-   xml.rpc(ServerURL, "wp.getPage", blogid, pageid, names(login), as.character(login), ...)
+   xml.rpc(.server, "wp.getPage", blogid, pageid, names(login), as.character(login), ...)
 }
 
 
 getPages =
   # ll = getPages()
-function(blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ...)
+function(blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ..., .server = getServerURL())
 {
- generalRequest("wp.getPages", blogid, login, ...)
+ generalRequest("wp.getPages", blogid, login, ..., .server = .server)
 }
 
 getPageList =
  # ll = getPageList()
-function(blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ...)
+function(blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ..., .server = getServerURL())
 {
- generalRequest("wp.getPageList", blogid, login, ...)
+ generalRequest("wp.getPageList", blogid, login, ..., .server = .server)
 }
 
 getOptions =
  # ll = getOptions()
-function(blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ...)
+function(blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ..., .server = getServerURL())
 {
- generalRequest("wp.getOptions", blogid, login, ...)
+ generalRequest("wp.getOptions", blogid, login, ..., .server = .server)
 }
 
 getPageStatusList =
  # ll = getOptions()
-function(blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ...)
+function(blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ..., .server = getServerURL())
 {
- generalRequest("wp.getPageStatusList", blogid, login, ..., asDataFrame = FALSE)
+ generalRequest("wp.getPageStatusList", blogid, login, ..., asDataFrame = FALSE, .server = .server)
 }
 
 getPostStatusList =
  # ll = getOptions()
-function(blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ...)
+function(blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ..., .server = getServerURL())
 {
- generalRequest("wp.getPageStatusList", blogid, login, ..., asDataFrame = FALSE)
+ generalRequest("wp.getPageStatusList", blogid, login, ..., asDataFrame = FALSE, .server = .server)
 }
 
 generalRequest =
-function(op, blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ..., asDataFrame = TRUE)
+function(op, blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ..., asDataFrame = TRUE, .server = getServerURL())
 {
-  ans = xml.rpc(ServerURL, op, as.integer(blogid),
+  ans = xml.rpc(.server, op, as.integer(blogid),
                      names(login), as.character(login), ...)
   if(asDataFrame) {
      makeIntoDataFrame(ans)
@@ -128,11 +135,13 @@ newCategory =
   # cat = newCategory("tmp", "A temporary category that I will then delete")
   # length(categories())
   # deleteCategory(cat)
-function(category, description = "???", slug = category, parent = 0L, blogid = 0, login = getOption("WordpressLogin", stop("need a login and password")))
+function(category, description = "???", slug = category, parent = 0L, blogid = 0,
+          login = getOption("WordpressLogin", stop("need a login and password")),
+           .server = getServerURL())
 {
 #  catg = list(category, slug, parent, description)
   catg = category
-  ans = xml.rpc(ServerURL, "wp.newCategory",
+  ans = xml.rpc(.server, "wp.newCategory",
                    as.integer(blogid), names(login), as.character(login), catg)
   structure(ans, names = category, class = "WordPressCategoryId")
 }
@@ -140,9 +149,9 @@ function(category, description = "???", slug = category, parent = 0L, blogid = 0
 
 #
 getUsersBlogs =
-function(login = getOption("WordpressLogin", stop("need a login and password")))
+function(login = getOption("WordpressLogin", stop("need a login and password")), .server = getServerURL())
 {
-  ans = xml.rpc(ServerURL, "wp.getUsersBlogs", names(login), as.character(login))
+  ans = xml.rpc(.server, "wp.getUsersBlogs", names(login), as.character(login))
   ans[[1]]
 }
 
@@ -153,12 +162,12 @@ newPage =
   # wp.newPage(list(description = "This is some text that I posted from R", title = "Test from R"))
   #
 function(content, publish = TRUE, blogid = 0, login = getOption("WordpressLogin", stop("need a login and password")),
-          method = "wp.newPage")
+          method = "wp.newPage", .server = getServerURL())
 {
   if(is.character(content))
     content = list(description = content)
   
-  ans = xml.rpc(ServerURL, method,
+  ans = xml.rpc(.server, method,
                     as.character(blogid), names(login), as.character(login), content, as.logical(publish))
   ans
 }
@@ -168,9 +177,9 @@ newPost =
   #
   # wp.newPost(list(description = "This is some text that I posted from R", title = "Test from R"), blogId = "1345476")
   #
-function(content, publish = TRUE, blogid = 0, login = getOption("WordpressLogin", stop("need a login and password")))
+function(content, publish = TRUE, blogid = 0, login = getOption("WordpressLogin", stop("need a login and password")), .server = getServerURL())
 {
-  ans = newPage(content, publish, blogid, login, "metaWeblog.newPost")
+  ans = newPage(content, publish, blogid, login, "metaWeblog.newPost", .server = .server)
   structure(ans, class = "WordpressPostId")
 }
 
@@ -180,33 +189,35 @@ function(content, publish = TRUE, blogid = 0, login = getOption("WordpressLogin"
   #  containing a single element named categoryId and the value  being the category identifier.
   # So if the caller gives us strings that are not numbers, lookup the category ids.
 setGeneric("setPostCategories",
-             function(postid, categories, login = getOption("WordpressLogin", stop("need a login and password")), publish = TRUE, ...)
+             function(postid, categories, login = getOption("WordpressLogin", stop("need a login and password")),
+                       publish = TRUE, ..., .server = getServerURL())
            standardGeneric("setPostCategories"))
 
 setMethod("setPostCategories", c(categories = "character"),
-function(postid, categories, login = getOption("WordpressLogin", stop("need a login and password")), publish = TRUE, ...)
+function(postid, categories, login = getOption("WordpressLogin", stop("need a login and password")),
+           publish = TRUE, ..., .server = getServerURL())
 {
-   cats = matchCategory(categories, login)
+   cats = matchCategory(categories, login, .server = .server)
    values = lapply(cats, function(x) list(categoryId = x))
-   setPostCategories(postid, values, login, publish, ...)
+   setPostCategories(postid, values, login, publish, ..., .server = .server)
 })
 
 setMethod("setPostCategories", c(categories = "list"),
-function(postid, categories, login = getOption("WordpressLogin", stop("need a login and password")), publish = TRUE, ...)
+function(postid, categories, login = getOption("WordpressLogin", stop("need a login and password")), publish = TRUE, ..., .server = getServerURL())
 {
-  ans = xml.rpc(ServerURL, "mt.setPostCategories", as.character(postid),
+  ans = xml.rpc(.server, "mt.setPostCategories", as.character(postid),
                        names(login), as.character(login), categories, ...)
   if(ans && publish)
-     publishPost(postid, login)
+     publishPost(postid, login, .server = .server)
   else
      ans
 })
 
 publishPost =
  # 
-function(postid, login = getOption("WordpressLogin", stop("need a login and password")), ...)
+function(postid, login = getOption("WordpressLogin", stop("need a login and password")), ..., .server = getServerURL())
 {
-  xml.rpc(ServerURL, "mt.publishPost", as.character(postid),
+  xml.rpc(.server, "mt.publishPost", as.character(postid),
                      names(login), as.character(login),  ...)
 }
 
@@ -224,8 +235,8 @@ uploadFile =
   #
   # uploadFile("RWordpress/R/wp.R")
   #
-function(what, type = guessMIMEType(type), blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")),
-          remoteName = basename(what), overwrite = TRUE, ...)
+function(what, type = guessMIMEType(what), blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")),
+          remoteName = basename(what), overwrite = TRUE, ..., .server = getServerURL())
 {
   if(inherits(what, "AsIs")) {
     content = what     
@@ -236,7 +247,7 @@ function(what, type = guessMIMEType(type), blogid = 0L, login = getOption("Wordp
   }
 
   info = list(name = remoteName, type = type, bits = content, overwrite = overwrite)
-  xml.rpc(ServerURL, "wp.uploadFile", as.character(blogid),
+  xml.rpc(.server, "wp.uploadFile", as.character(blogid),
                      names(login), as.character(login),  info, ...)  
 
 }
@@ -254,24 +265,26 @@ function (filename)
 ######
 
 deletePost =
-function(postid, login = getOption("WordpressLogin", stop("need a login and password")), publish = TRUE, appId = "RWordPress", ...)
+function(postid, login = getOption("WordpressLogin", stop("need a login and password")),
+          publish = TRUE, appId = "RWordPress", ..., .server = getServerURL())
 {
-  xml.rpc(ServerURL, "metaWeblog.deletePost", appId, as.character(postid),
+  xml.rpc(.server, "metaWeblog.deletePost", appId, as.character(postid),
                      names(login), as.character(login), as.logical(publish), ...)
 }
 
 deleteCategory =
-function(categoryid, blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ...)
+function(categoryid, blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")),
+          ..., .server = getServerURL())
 {
   if(!inherits(categoryid, "WordPressCategoryId"))
-     categoryid = matchCategory(categoryid, login)
+     categoryid = matchCategory(categoryid, login, .server = .server)
   
-  xml.rpc(ServerURL, "wp.deleteCategory", as.character(blogid),
+  xml.rpc(.server, "wp.deleteCategory", as.character(blogid),
                      names(login), as.character(login), as.character(categoryid), ...)
 }
 
 matchCategory =
-function(categories, login, catIds = getCategoryList(login))
+function(categories, login, catIds = getCategoryList(login, .server = .server), .server = getServerURL())
 {
 
    i = pmatch(tolower(categories), tolower(names(catIds)))
@@ -305,17 +318,17 @@ deletePage =
   #  newPages = getPages()
   #  nrow(pages) == nrow(newPages)
   #
-function(pageid, blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ...)
+function(pageid, blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ..., .server = getServerURL())
 {
-  xml.rpc(ServerURL, "wp.deletePage", as.character(blogid),
+  xml.rpc(.server, "wp.deletePage", as.character(blogid),
                      names(login), as.character(login),  as.character(pageid), ...)
 }
 
 
 editPost =
-function(postid, content, login = getOption("WordpressLogin", stop("need a login and password")), publish = TRUE, appId = "RWordpress", ...)
+function(postid, content, login = getOption("WordpressLogin", stop("need a login and password")), publish = TRUE, appId = "RWordpress", ..., .server = getServerURL())
 {
-  xml.rpc(ServerURL, "metaWeblog.editPost", appId, as.character(postid),
+  xml.rpc(.server, "metaWeblog.editPost", appId, as.character(postid),
                      names(login), as.character(login), as.character(content), as.logical(publish), ...)
 }
 
@@ -324,12 +337,12 @@ function(postid, content, login = getOption("WordpressLogin", stop("need a login
 # http://www.sixapart.com/developers/xmlrpc/movable_type_api/
 
 supportedMethods =
-function()  
-   xml.rpc(ServerURL, "mt.supportedMethods")
+function(.server = getServerURL())  
+   xml.rpc(.server, "mt.supportedMethods")
 
 supportedTextFilters =
-function()  
-   xml.rpc(ServerURL, "mt.supportedTextFilters")  
+function(.server = getServerURL())  
+   xml.rpc(.server, "mt.supportedTextFilters")  
 
 
 

@@ -9,10 +9,16 @@
   us to construct content appropriately.
 }
 \usage{
-supportedMethods()
-supportedTextFilters()
+supportedMethods(.server = getServerURL())
+supportedTextFilters(.server = getServerURL())
 }
-\arguments{}
+\arguments{
+  \item{.server}{a string giving the URL of the Wordpress server. This
+    can be specified by the caller directly or can be set as a global
+    option in R named \code{WordpressURL}, e.g.
+       \code{options(WordpressURL =
+	 "https://www.mywordpress.org/xmlrpc.php")}.}
+}
 \value{
   \code{supportedMethods} returns a character vector of the method
   names. There is no information in the return value about the arguments.

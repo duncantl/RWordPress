@@ -20,19 +20,21 @@
 }
 \usage{
 newCategory(category, description = "???", slug = category, parent = 0L,
-             blogid = 0, login = getOption("WordpressLogin", stop("need a login and password")))
-publishPost(postid, login = getOption("WordpressLogin", stop("need a login and password")), ...  )
+             blogid = 0, login = getOption("WordpressLogin", stop("need a login and password")),
+              .server = getServerURL())
+publishPost(postid, login = getOption("WordpressLogin", stop("need a login and password")),
+             ...,  .server = getServerURL())
 uploadFile(what, type = guessMIMEType(type), blogid = 0L,
             login = getOption("WordpressLogin", stop("need a login and password")),
-             remoteName = basename(what), overwrite = TRUE, ...  )
+             remoteName = basename(what), overwrite = TRUE, ..., .server = getServerURL()  )
 newPage(content, publish = TRUE, blogid = 0,
-            login = getOption("WordpressLogin", stop("need a login and password")), method = "wp.newPage")
+            login = getOption("WordpressLogin", stop("need a login and password")), method = "wp.newPage", .server = getServerURL())
 newPost(content, publish = TRUE, blogid = 0,
-          login = getOption("WordpressLogin", stop("need a login and password")))
-deleteCategory(categoryid, blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ...  )
-deletePage(pageid, blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ...  )
+          login = getOption("WordpressLogin", stop("need a login and password")), .server = getServerURL())
+deleteCategory(categoryid, blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ..., .server = getServerURL()  )
+deletePage(pageid, blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ..., .server = getServerURL()  )
 deletePost(postid, login = getOption("WordpressLogin", stop("need a login and password")),
-            publish = TRUE, appId = "RWordPress", ...  )
+            publish = TRUE, appId = "RWordPress", ..., .server = getServerURL() )
 }
 \arguments{
  \item{category}{the name of the new category to create}
@@ -66,7 +68,11 @@ deletePost(postid, login = getOption("WordpressLogin", stop("need a login and pa
  \item{appId}{the name of our program making the request}  
  \item{method}{the name of the actual XMLRPC method to invoke. This
    allows one function to be parameterized to implement multiple methods
- that are very similar.} 
+   that are very similar.}
+  \item{.server}{a string giving the URL of the Wordpress server. This
+    can be specified by the caller directly or can be set as a global
+    option in R named \code{WordpressURL}, e.g.
+       \code{options(WordpressURL = "https://www.mywordpress.org/xmlrpc.php")}.}
 }
 \value{}
 \examples{

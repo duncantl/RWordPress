@@ -31,11 +31,14 @@
    \code{struct}, this corresponds to  a named  list in R.
  }
  \usage{
-getPostCategories(post = 100, login = getOption("WordpressLogin", stop("need a login and password")))
-getPost(postid, login = getOption("WordpressLogin", stop("need a login and password")))
-generalRequest(op, blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ..., asDataFrame = TRUE)
-getPage(pageid, blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ...)
-getRecentPostTitles(num = 100, blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ...)
+getPostCategories(post = 100, login = getOption("WordpressLogin", stop("need a login and password")),
+                   .server = getServerURL())
+getPost(postid, login = getOption("WordpressLogin", stop("need a login and password")),
+         .server = getServerURL())
+generalRequest(op, blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), 
+                ..., asDataFrame = TRUE, .server = getServerURL())
+getPage(pageid, blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ..., .server = getServerURL())
+getRecentPostTitles(num = 100, blogid = 0L, login = getOption("WordpressLogin", stop("need a login and password")), ..., .server = getServerURL())
 }
  \arguments{
  \item{login}{a character vector giving the login and password as a
@@ -46,7 +49,11 @@ getRecentPostTitles(num = 100, blogid = 0L, login = getOption("WordpressLogin", 
  \item{asDataFrame}{whether to conver the result into a data frame}
  \item{pageid,postid,post}{the id of the page or post of interest}
  \item{num}{the number of posts/titles to retrieve}
- \item{op}{the name of the operation/method} 
+ \item{op}{the name of the operation/method}
+   \item{.server}{a string giving the URL of the Wordpress server. This
+    can be specified by the caller directly or can be set as a global
+    option in R named \code{WordpressURL}, e.g.
+       \code{options(WordpressURL = "https://www.mywordpress.org/xmlrpc.php")}.}
  } 
  \value{}
  \examples{}

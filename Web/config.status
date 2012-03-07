@@ -503,9 +503,9 @@ s,@build_alias@,|#_!!_#|,g
 s,@host_alias@,|#_!!_#|,g
 s,@target_alias@,|#_!!_#|,g
 s,@PKG_NAME@,|#_!!_#|RWordPress,g
-s,@VERSION@,|#_!!_#|0.1-0,g
-s,@TAR_FILE@,|#_!!_#|RWordPress_0.1-0.tar.gz,g
-s,@DATE@,|#_!!_#|15 Mar 2010,g
+s,@VERSION@,|#_!!_#|0.2-1,g
+s,@TAR_FILE@,|#_!!_#|RWordPress_0.2-1.tar.gz,g
+s,@DATE@,|#_!!_#|28 Feb 2012,g
 s,@LIBOBJS@,|#_!!_#|,g
 s,@LTLIBOBJS@,|#_!!_#|,g
 :end
