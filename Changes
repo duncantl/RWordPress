@@ -1,0 +1,7 @@
+Version 0.2-1
+
+  *   Fix of type for uploadFile() in computing the default value for the MIME type.
+
+Version 0.2-0
+
+  *   Allow the user to specify the location of the server URL.
