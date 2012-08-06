@@ -1,3 +1,8 @@
+Version 0.2-2
+
+  *   Fix for editPost() to not include the appId
+      Found by Daniel Wollschlaeger.
+
 Version 0.2-1
 
   *   Fix of type for uploadFile() in computing the default value for the MIME type.
