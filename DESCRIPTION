@@ -1,5 +1,5 @@
 Package: RWordPress
-Version: 0.2-2
+Version: 0.2-3
 Title: Interface to Wordpress blogs
 Description: This is a package that provides a programmatic interface to 
   access Wordpress blogs using XMLRPC. Using the login and password for a blog,

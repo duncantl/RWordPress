@@ -328,8 +328,11 @@ function(pageid, blogid = 0L, login = getOption("WordpressLogin", stop("need a l
 editPost =
 function(postid, content, login = getOption("WordpressLogin", stop("need a login and password")), publish = TRUE, appId = "RWordpress", ..., .server = getServerURL())
 {
+  if(!is.list(content))
+    content = list(description = as.character(content))
+  
   xml.rpc(.server, "metaWeblog.editPost", as.character(postid),
-                     names(login), as.character(login), as.character(content), as.logical(publish), ...)
+                     names(login), as.character(login), content, as.logical(publish), ...)
 }
 
 #################

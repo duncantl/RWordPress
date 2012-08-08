@@ -1,3 +1,9 @@
+Version 0.2-3
+
+  *   Another fix for editPost() found by Daniel Wollschlaeger.
+      content can be a list() with fields describing the structure
+      or a simple character string.
+
 Version 0.2-2
 
   *   Fix for editPost() to not include the appId

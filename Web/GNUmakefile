@@ -1,6 +1,8 @@
 PACKAGE=RWordPress
 
-include ../../AdminTools/GNUmakefile
+ADMIN_TOOLS=$(HOME)/Books/XMLTechnologies/Rpackages/AdminTools
+
+include $(ADMIN_TOOLS)/GNUmakefile
 
 TARGET_DIR=www.omegahat.org:OmegaWeb/$(PACKAGE)
 
