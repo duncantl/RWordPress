@@ -18,4 +18,4 @@ Author: Duncan Temple Lang
 Maintainer: Duncan Temple Lang <duncan@r-project.org>
 License: BSD
 Imports: XMLRPC, methods
-
+Remotes: duncantl/XMLRPC
