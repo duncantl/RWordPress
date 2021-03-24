@@ -28,8 +28,10 @@ setPostCategories,
 supportedMethods,
 supportedTextFilters,
 uploadFile,
-editPost
-#appendToPost       
+editPost,
+RWPSaveManual,
+RWPSaveCurrent,
+RWPSetCredentials
 )
 
 exportMethods(setPostCategories)
