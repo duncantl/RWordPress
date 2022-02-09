@@ -1,3 +1,8 @@
+Version TBD [forked, in progress]
+
+* Introduce RWPSaveManual, RWPSaveCurrent, and RWPSetCredentials functions
+* Remove a handful of unused files.
+
 Version 0.2-3
 
   *   Another fix for editPost() found by Daniel Wollschlaeger.
