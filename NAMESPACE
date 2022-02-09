@@ -1,5 +1,10 @@
 import(XMLRPC)
 import(methods)
+import(glue)
+import(xfun)
+import(httr)
+import(rmarkdown)
+import(base64enc)
 
 export(
 categories,
@@ -29,9 +34,8 @@ supportedMethods,
 supportedTextFilters,
 uploadFile,
 editPost,
-RWPSaveManual,
-RWPSaveCurrent,
-RWPSetCredentials
+publishREST,
+setRESTCredentials
 )
 
 exportMethods(setPostCategories)
