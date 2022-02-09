@@ -34,8 +34,8 @@ supportedMethods,
 supportedTextFilters,
 uploadFile,
 editPost,
-publishREST,
-setRESTCredentials
+publish_rest,
+set_rest_credentials
 )
 
 exportMethods(setPostCategories)
