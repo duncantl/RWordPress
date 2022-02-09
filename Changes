@@ -3,6 +3,7 @@ Version TBD [forked, in progress]
 * Introduce RWPSaveManual, RWPSaveCurrent, and RWPSetCredentials functions
 * Remove a handful of unused files.
 * Introduce setRESTCredentials and publishREST to allow a post to be published with the WordPress REST API.
+* Drop XML-RPC requirement in favor of REST API, remove all old methods.
 
 Version 0.2-3
 
