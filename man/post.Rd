@@ -24,7 +24,7 @@ newCategory(category, description = "???", slug = category, parent = 0L,
               .server = getServerURL())
 publishPost(postid, login = getOption("WordpressLogin", stop("need a login and password")),
              ...,  .server = getServerURL())
-uploadFile(what, type = guessMIMEType(type), blogid = 0L,
+uploadFile(what, type = guessMIMEType(what), blogid = 0L,
             login = getOption("WordpressLogin", stop("need a login and password")),
              remoteName = basename(what), overwrite = TRUE, ..., .server = getServerURL()  )
 newPage(content, publish = TRUE, blogid = 0,
